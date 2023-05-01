@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+        viewBox="0 0 16 16">
+    </svg>
+    <link rel="shortcut icon" type="image/png" href="./img/mini_icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>入学準備？</title>
+</head>
+
+<body>
+    <div id="opening">
+        <div id="opening_logo"><img src="./img/opening.png" alt="" class="fadeUp"></div>
+    </div>
+
+    <header>
+
+        <h1>入学準備 ソーイング</h1>
+    </header>
+
+    <main>
+        <div class="box1">
+            <img src="./img/icon01.png" alt="">
+            <img src="./img/icon02.png" alt="">
+            <img src="./img/icon03.png" alt="">
+            <img src="./img/icon04.png" alt="">
+        </div>
+        <div class="box2">
+            <div class="box_left">
+                <div id="check_box">
+                    <div class="box_txt">作品名</div>
+                    <div id="title"><input type="text"></div>
+
+                    <div class="box_txt">仕上がりサイズ</div>
+                    <div class="complete">
+                        <span class="symbol">縦</span>
+                        <input type="number" id="complete_height">
+                        <span class="multiplication">×</span>
+                        <span class="symbol">横</span>
+                        <input type="number" id="complete_width">
+                        <span class="symbol">cm</span>
+                    </div>
+
+                    <div class="box_txt">マチ</div>
+                    <div class="machi">
+                        <label>
+                            <input type="radio" name="machi_yn" value="yes">
+                            あり
+                        </label>
+                        <label>
+                            <input type="radio" name="machi_yn" value="no" checked>
+                            なし
+                        </label>
+                    </div>
+                    <div class="box_txt">マチの大きさ</div>
+                    <div class="m_size">
+                        <input type="number" id="machi_size">
+                        <span class="symbol">cm</span>
+                    </div>
+
+                    <div class="box_txt">フリル</div>
+                    <div class="frill">
+                        <label>
+                            <input type="radio" name="frill_yn" value="yes">
+                            あり
+                        </label>
+                        <label>
+                            <input type="radio" name="frill_yn" value="no" checked>
+                            なし
+                        </label>
+                    </div>
+
+                    <div class="box_txt">柄の向き</div>
+                    <div class="direction">
+                        <label>
+                            <input type="radio" name="pattern_yn" value="yes">
+                            あり
+                        </label>
+                        <label>
+                            <input type="radio" name="pattern_yn" value="no" checked>
+                            なし
+                        </label>
+                    </div>
+                </div>
+                <div class="button">
+                    <button id="dicision">決定</button>
+                    <button id="clear">クリア</button>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="box3">
+            <div class="box_txt">必要な布の大きさは</div>
+            <div class="result">
+                <span class="symbol">縦</span>
+                <input type="number" id="result_height">
+                <span class="multiplication">×</span>
+                <span class="symbol">横</span>
+                <input type="number" id="result_width">
+                <span class="multiplication">cm</span>
+            </div>
+            <div class="button">
+                <button id="save">保存</button>
+            </div>
+        </div>
+
+        <div class="box4" id="history">
+
+        </div>
+
+    </main>
+
+    </div>
+    <script src="./js/firebase.js" type="module"></script>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/main.js"></script>
+
+
+
+</body>
+
+</html>

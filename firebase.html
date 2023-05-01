@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.0.min.js"></script>
+    <title>お便りアプリ</title>
+</head>
+
+<body>
+
+    <!-- コンテンツ表示画面 -->
+
+    
+   <div class="content">
+    <div class="name">
+    <div> name:  <input type="text" id="uname"> </div>
+   </div>
+    <div id="chat_box"> </div>
+    
+
+        <div class="group" >
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send">送信</button>
+        </div>
+    </div>
+
+
+    <!--/ コンテンツ表示画面 -->
+
+
+
+
+
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+            from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js";
+
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1eib4bl3_601CYakafLfHlrRazgPHHjY",
+            authDomain: "tips-fed8c.firebaseapp.com",
+            projectId: "tips-fed8c",
+            storageBucket: "tips-fed8c.appspot.com",
+            messagingSenderId: "847942155195",
+            appId: "1:847942155195:web:80e2d7ddf3e4835a69629e"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);//ファイアベースにアクセス
+        const db = getDatabase(app);//リアルタイムデータベースにアクセス
+        const dbRef = ref(db, "users");//""のなかに入れる ”chat/memo3"のように階層を作れる
+
+        function createChatMessage(msg) {
+            const chatMessage = `
+        <div class="chat_message">
+            <p class="uname">${msg.uname}</p>
+            <p class="text">${msg.text}</p>
+        </div>
+    `;
+            return chatMessage;
+        }
+
+        function displayChatMessage(msg) {
+            const chatBox = $('#chat_box');
+            const chatMessage = createChatMessage(msg);
+            chatBox.append(chatMessage);
+            chatBox.scrollTop(chatBox[0].scrollHeight);
+        }
+
+        // function displayChatMessage(msg) {
+        //     const chatBox = $('#chat_box');
+        //     const chatMessage = $('<div class="chat_message"></div>');
+        //     const p = $('<p></p>').text(msg.text);
+        //     p.html(nl2br(p.html())); //改行を反映する
+        //     chatMessage.append(p);
+
+        //     // 送信者のunameと一致する場合はsenderクラスを追加する
+        //     if (msg.sender && msg.uname === currentUsername) {
+        //         chatMessage.addClass('sender');
+        //     }
+        //     chatBox.append(chatMessage);
+        //     chatBox.scrollTop(chatBox[0].scrollHeight);
+        // }
+
+        // function nl2br(str) {
+        //     return str.replace(/\r?\n/g, '<br>');
+        // }
+
+
+
+        $("#send").on("click", function () {
+            const msg = {
+                uname: $("#uname").val(),
+                text: $("#text").val(),
+                sender: true
+            };
+            const newPostRef = push(dbRef);
+            set(newPostRef, msg);
+
+            $('#text').val('');
+        });
+
+        onChildAdded(dbRef, function (data) {
+            const msg = data.val();
+            displayChatMessage(msg);
+        });
+
+
+
+// let currentUsername;
+
+// // unameが重複しているかを確認する関数
+// function checkUnameExists(uname) {
+//   return new Promise((resolve, reject) => {
+//     const ref = database.ref('users').orderByChild('uname').equalTo(uname);
+//     ref.once('value', (snapshot) => {
+//       const exists = (snapshot.val() !== null);
+//       resolve(exists);
+//     });
+//   });
+// }
+
+// // unameが重複していない場合に実行する関数
+// function registerUname(uname) {
+//   // Firebase Realtime Databaseにunameを登録する処理など
+//   currentUsername = uname;
+// }
+
+// // unameを登録する関数
+// // unameを登録する関数
+// async function register() {
+//   const uname = $('#uname_input').val();
+//   const exists = await checkUnameExists(uname);
+//   if (exists) {
+//     alert('このunameは既に使用されています。');
+//   } else {
+//     registerUname(uname);
+//     currentUsername = uname; // 登録したユーザーネームを現在のユーザーネームとして設定
+//     $('#uname').val(uname); // チャット欄にユーザーネームを表示する
+//   }
+// }
+
+
+// function createChatMessage(msg) {
+//   const chatMessage = `
+//     <div class="chat_message">
+//       <p class="uname">${msg.uname}</p>
+//       <p class="text">${msg.text}</p>
+//     </div>
+//   `;
+//   return chatMessage;
+// }
+
+// function displayChatMessage(msg) {
+//   const chatBox = $('#chat_box');
+//   const chatMessage = createChatMessage(msg);
+//   chatBox.append(chatMessage);
+//   chatBox.scrollTop(chatBox[0].scrollHeight);
+// }
+
+// $("#send").on("click", async function() {
+//   const uname = $('#uname').val();
+//   const text = $('#text').val();
+  
+//   if (!currentUsername) {
+//     alert('ユーザネームを登録してください。');
+//     return;
+//   }
+
+//   const msg = {
+//     uname: currentUsername,
+//     text: text,
+//     sender: true
+//   };
+
+//   const newPostRef = database.ref().push();
+//   newPostRef.set(msg);
+
+//   $('#text').val('');
+// });
+
+// database.ref().on('child_added', function(snapshot) {
+//   const msg = snapshot.val();
+//   displayChatMessage(msg);
+// });
+
+    </script>
+
+</body>
+
+</html>

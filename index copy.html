@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.0.min.js"></script>
+
+    <title>巾着作り</title>
+</head>
+
+<body>
+
+    <header>
+        <h1></h1>
+    </header>
+
+    <main>
+        <div class="box1">
+
+        </div>
+        <div class="box2">
+            <div class="box_left">
+                <div id="check_box">
+                    <div class="box_txt">タイトル</div>
+                    <div class="title"><input type="text"></div>
+
+                    <div class="box_txt">仕上がりサイズ</div>
+                    <div class="complete">
+                        <span class="symbol">縦</span>
+                        <input type="number" id="complete_height">
+                        <span class="multiplication">×</span>
+                        <span class="symbol">横</span>
+                        <input type="number" id="complete_width">
+                        <span class="symbol">cm</span>
+                    </div>
+
+                    <div class="box_txt">マチ</div>
+                    <div class="machi">
+                        <label>
+                            <input type="radio" name="machi_yn" value="yes">
+                            あり
+                        </label>
+                        <label>
+                            <input type="radio" name="machi_yn" value="no" checked>
+                            なし
+                        </label>
+                    </div>
+                    <div class="box_txt">マチの大きさ</div>
+                    <div class="m_size">
+                        <input type="number" id="machi_size">
+                        <span class="symbol">cm</span>
+                    </div>
+
+                    <div class="box_txt">フリル</div>
+                    <div class="frill">
+                        <label>
+                            <input type="radio" name="frill_yn" value="yes">
+                            あり
+                        </label>
+                        <label>
+                            <input type="radio" name="frill_yn" value="no" checked>
+                            なし
+                        </label>
+                    </div>
+
+                    <div class="box_txt">柄の向き</div>
+                    <div class="direction">
+                        <label>
+                            <input type="radio" name="pattern_yn" value="yes">
+                            あり
+                        </label>
+                        <label>
+                            <input type="radio" name="pattern_yn" value="no" checked>
+                            なし
+                        </label>
+                    </div>
+                </div>
+                <div class="button">
+                    <button id="dicision">決定</button>
+                    <button id="clear">クリア</button>
+                </div>
+            </div>
+            <div class="images">
+
+            </div>
+
+        </div>
+
+        <div class="box3">
+            <div class="box_txt">必要な大きさは</div>
+            <div class="result">
+                <span class="symbol">縦</span>
+                <input type="number" id="result_height">
+                <span class="multiplication">×</span>
+                <span class="symbol">横</span>
+                <input type="number" id="result_width">
+                <span class="multiplication">cm</span>
+            </div>
+            <div class="button">
+                <button id="save">保存</button>
+            </div>
+        </div>
+
+        <div class="box4" id="history">
+
+        </div>
+    </main>
+
+    </div>
+
+    <script>
+
+
+
+        $("#dicision").on("click", function () {
+
+            const completeHeightInput = $("#complete_height");
+            const completeWidthInput = $("#complete_width");
+            const machiSizeInput = $("#machi_size");
+            const resultHeightInput = $("#result_height");
+            const resultWidthInput = $("#result_width");
+
+
+
+            const machiYesRadio = $('input[name="machi_yn"]:checked').val();
+            const frillYesRadio = $('input[name="frill_yn"]:checked').val();
+            const patternYesRadio = $('input[name="pattern_yn"]:checked').val();
+            const title = $("input[type='text']").val();
+            if (title === "") {
+                alert("タイトルが未入力です");
+                return false;
+            }
+
+            //フォームの入力値を変数に代入、parseIntで文字列から数値に変換
+            const completeHeight = parseInt(completeHeightInput.val());
+            const completeWidth = parseInt(completeWidthInput.val());
+            const machiSize = parseInt(machiSizeInput.val());
+            let resultHeight = resultHeightInput.val();
+            let resultWidth = resultWidthInput.val();
+
+
+            if (machiYesRadio === "yes" && machiSizeInput.val()==="") {
+                alert("マチの値が未入力です");
+                return false;
+            }
+
+            if (machiYesRadio === "yes" && frillYesRadio === "yes" && patternYesRadio === "yes") {
+
+
+                resultHeight = (completeHeight * 2) + machiSize + 8;
+                resultWidth = completeWidth + machiSize + 2;
+                console.log(resultHeight);
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+
+            } if (machiYesRadio === "yes" && frillYesRadio === "yes" && patternYesRadio === "no") {
+                resultHeight = (completeHeight * 2) + machiSize + 6;
+                resultWidth = completeWidth + machiSize + 2;
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+
+            } if (machiYesRadio === "yes" && frillYesRadio === "no" && patternYesRadio === "yes") {
+                resultHeight = (completeHeight * 2) + machiSize + 4;
+                resultWidth = completeWidth + machiSize + 2;
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+
+            } if (machiYesRadio === "yes" && frillYesRadio === "no" && patternYesRadio === "no") {
+                resultHeight = (completeHeight * 2) + machiSize + 2;
+                resultWidth = completeWidth + machiSize + 2;
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+
+
+            } if (machiYesRadio === "no" && frillYesRadio === "yes" && patternYesRadio === "no") {
+                resultHeight = (completeHeight * 2) + 6;
+                resultWidth = completeWidth + 2;
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+            } if (machiYesRadio === "no" && frillYesRadio === "no" && patternYesRadio === "yes") {
+                resultHeight = (completeHeight * 2) + machiSize + 4;
+                resultWidth = completeWidth + 2;
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+
+            } if (machiYesRadio === "no" && frillYesRadio === "no" && patternYesRadio === "no") {
+                resultHeight = (completeHeight * 2) + 2;
+                resultWidth = completeWidth + 2;
+
+
+                resultHeightInput.val(resultHeight.toString());
+                resultWidthInput.val(resultWidth.toString());
+
+            }
+        
+
+        });
+
+
+
+
+
+
+        $("#clear").on("click", function () {
+            $("input[type='text']").val("");
+            $("#complete_height").val("");
+            $("#complete_width").val("");
+            $("#machi_size").val("");
+            $("#result_height").val("");
+            $("#result_width").val("");
+            $("#machi_yn").prop("checked", true);
+            $("#frill_yn").prop("checked", true);
+            $("#pattern_yn").prop("checked", true);
+        });
+    </script>
+</body>
+
+</html>
