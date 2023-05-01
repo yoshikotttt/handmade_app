@@ -225,6 +225,16 @@ h2 {
     margin-top: 40px;
     font-size: 8px;
 }
+
+.box5 {
+
+    height: 200px;
+}
+
+footer {
+    font-size: 1px;
+    text-align: center;
+}
 @media screen and (max-width: 767px) {
     body {
         width: 100%;
@@ -316,13 +326,13 @@ h2 {
         height: auto;
     }
 
-    .box4 {
+    #history {
         
-        
-        width: 380px;
+        height: 300px;
+        width: 400px;
         justify-content: center;
         background-image: url(./img/box4_bgi2.png);
-        height: 500px;
+     
     }
 
     .button {
