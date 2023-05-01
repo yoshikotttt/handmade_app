@@ -1,14 +1,8 @@
+//opening
 $(window).on("load",function(){
     $("#opening").delay(1500).fadeOut('slow');
-    $("#opening_logo".delay(1200).fadeOut("slow"));
+    $("#opening_logo").delay(1200).fadeOut("slow");
 });
-
-
-
-
-
-
-
 
 
 $("#dicision").on("click", function () {

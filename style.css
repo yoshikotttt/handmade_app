@@ -322,10 +322,12 @@ h2 {
         width: 380px;
         justify-content: center;
         background-image: url(./img/box4_bgi2.png);
+        height: 500px;
     }
 
     .button {
-        margin: 0 auto;
+        margin-top: 20px;
+        justify-content: center;
     }
 
 }
