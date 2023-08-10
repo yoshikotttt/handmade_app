@@ -1,21 +1,21 @@
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
 import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
-    from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
+    from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBZE8Zp8dyMhWFeucDPBucQDUl_UhqIUxg",
-    authDomain: "sewing-e7f7c.firebaseapp.com",
-    projectId: "sewing-e7f7c",
-    storageBucket: "sewing-e7f7c.appspot.com",
-    messagingSenderId: "143023435439",
-    appId: "1:143023435439:web:b976a2263b7cb3e67b2e5a"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -70,7 +70,8 @@ onChildAdded(dbRef, function (data) {
     const $size2 = $("<p>").text(`(仕上がりサイズ　　${goods.completeHeight}×${goods.completeWidth}cm)`);
     const $date = $("<p>").addClass("date").text(goods.createdAd);
     const $deleteBtn = $("<img>").addClass("deleteBtn").attr("src", "./img/trash.svg").attr("data-key", key);
-    $card.append($title, $size1, $size2, $date,$deleteBtn);
+
+    $card.append($title, $size1, $size2, $date, $deleteBtn);
 
     $("#history").prepend($card);
     $("#history").scrollTop(0);

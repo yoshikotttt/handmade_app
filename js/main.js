@@ -5,7 +5,7 @@ $(window).on("load",function(){
 });
 
 
-$("#dicision").on("click", function () {
+$("#decision").on("click", function () {
     //入力値の名前を決める
     const completeHeightInput = $("#complete_height");
     const completeWidthInput = $("#complete_width");
